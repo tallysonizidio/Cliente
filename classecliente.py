@@ -1,29 +1,26 @@
 class Cliente(Locadora):
  
-    def __init__(self, nome, cpf, rg):
+    def __init__(self, nome, id):
         self.nome = nome
-        self.cpf = cpf
-        self.rg = rg
+        self.id = id
  
     def alterar_cliente(self):
         if len(self.ListaCliente) > 0:
-            self.cpf = str(input("Digite o CPF : ")).upper()
+            self.id = str(input("Digite o ID : ")).upper()
             if Cliente.existe_cliente(self):
                 for clt in self.ListaCliente:
-                    if clt['cpf'] == self.cpf:
+                    if clt['id'] == self.id:
                         print(f"\n\tNome: {clt['nome']}")
-                        print(f"\tCPF: {clt['cpf']}")
-                        print(f"\tRG: {clt['rg']}")
+                        print(f"\tID: {clt['id']}")
  
                         clt['nome'] = str(input("Nome: ")).upper()
-                        clt['cpf'] = str(input("CPF: "))
-                        clt['rg'] = str(input("RG: "))
+                        clt['id'] = str(input("ID: "))
  
-                        print(f"Os dados de {self.nome} foi alterado")
+                        print(f"Os dados de {self.nome} foram alterados")
                         break
  
             else:
-                print("Esse CPF não está cadastrado")
+                print("Usuário não está cadastrado!")
         else:
             print("Não existem clientes a serem alterados!")
  
@@ -32,20 +29,18 @@ class Cliente(Locadora):
             for i, clt in enumerate(self.ListaCliente):
                 print(f"\nCliente {i+1}:")
                 print(f"Nome: {clt['nome']}")
-                print(f"CPF: {clt['cpf']}")
-                print(f"RG: {clt['rg']}\n")
-            print(f"Total de clientes é: {len(self.ListaCliente)}\n")
+                print(f"ID: {clt['id']}")
+            print(f"O total de clientes é: {len(self.ListaCliente)}\n")
         else:
-            print("\nNenhum cliente para listar!\n")
+            print("\nNão há cliente para listar!\n")
  
     def buscar_cliente(self):
         if len(self.ListaCliente) > 0:
-            self.cpf = str(input("Digite o cpf: ")).upper()
+            self.cpf = str(input("Digite o ID: ")).upper()
             for car in self.ListaCliente:
-                if car['cpf'] == self.cpf:
+                if car['id'] == self.cpf:
                     print(f"\nNome: {car['nome']}")
-                    print(f"CPF: {car['cpf']}")
-                    print(f"RG: {car['rg']}\n")
+                    print(f"ID: {car['id']}")
                     break
         else:
             print("\nNenhum cliente cadastrado no sistema!\n")
@@ -53,23 +48,21 @@ class Cliente(Locadora):
     def existe_cliente(self):
         if len(self.ListaCliente) > 0:
             for clt in self.ListaCliente:
-                if clt['cpf'] == self.cpf:
+                if clt['id'] == self.id:
                     return True
         return False
  
     def novo_cliente(self):
         while True:
-            self.cpf = str(input("Digite o CPF: "))
+            self.id = str(input("Digite a ID: "))
             if not Cliente.existe_cliente(self):
                 break
             else:
-                print("Já cadastrado no sistema")
+                print(" Usuário já cadastrado no sistema")
         self.nome = str(input("Nome do cliente: ")).upper()
-        self.rg = str(input("RG: "))
         usuario = {
             'nome': self.nome,
-            'cpf': self.cpf,
-            'rg': self.rg
+            'id': self.id
         }
  
         self.ListaCliente.append(usuario)
